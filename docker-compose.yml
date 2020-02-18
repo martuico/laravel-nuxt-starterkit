@@ -1,0 +1,44 @@
+version: '3'
+services:
+  front:
+    image: node:7-slim
+    working_dir: "/var/www/app"
+    environment:
+      - HOST=0.0.0.0
+    ports:
+      - "${NUXT_PORT}:3000"
+    volumes:
+      - ./frontend:/var/www/app
+    command: bash -c "npm install && npm run dev"
+    depends_on:
+      - app
+  app:
+    build:
+      context: ./laravel/docker/nginx-php
+    volumes:
+      - '${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}${APP_CODE_CONTAINER_FLAG}'
+      - '${NGINX_HOST_LOG_PATH}:/var/log/nginx'
+      - '${NGINX_SSL_PATH}:/etc/nginx/ssl'
+    ports:
+      - '${NGINX_HOST_HTTP_PORT}:80'
+    environment:
+      - 'PHP_VERSION=${PHP_VERSION}'
+      - 'PHP_UPSTREAM_PORT=${NGINX_PHP_UPSTREAM_PORT}'
+    depends_on:
+      - mysql
+  mysql:
+    build:
+      context: ./laravel/docker/mysql
+      args:
+        - 'MYSQL_VERSION=${MYSQL_VERSION}'
+    environment:
+      - 'MYSQL_DATABASE=${MYSQL_DATABASE}'
+      - 'MYSQL_USER=${MYSQL_USER}'
+      - 'MYSQL_PASSWORD=${MYSQL_PASSWORD}'
+      - 'MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}'
+      - 'TZ=${WORKSPACE_TIMEZONE}'
+    volumes:
+      - '${DATA_PATH_HOST}/mysql:/var/lib/mysql'
+      - '${MYSQL_ENTRYPOINT_INITDB}:/docker-entrypoint-initdb.d'
+    ports:
+      - '${MYSQL_PORT}:3306'
