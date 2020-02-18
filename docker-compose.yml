@@ -1,7 +1,7 @@
 version: '3'
 services:
   front:
-    image: node:7-slim
+    image: node:12.16-slim
     working_dir: "/var/www/app"
     environment:
       - HOST=0.0.0.0
@@ -12,20 +12,37 @@ services:
     command: bash -c "npm install && npm run dev"
     depends_on:
       - app
+
   app:
     build:
-      context: ./laravel/docker/nginx-php
+      context: ./laravel
+      dockerfile: ./docker/apache/Dockerfile
+      args:
+        COMPOSER: "true"
+        XDEBUG: "true"
     volumes:
-      - '${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}${APP_CODE_CONTAINER_FLAG}'
-      - '${NGINX_HOST_LOG_PATH}:/var/log/nginx'
-      - '${NGINX_SSL_PATH}:/etc/nginx/ssl'
+      - './laravel:/var/www/html'
     ports:
-      - '${NGINX_HOST_HTTP_PORT}:80'
+      - '${HTTP_PORT}:80'
     environment:
-      - 'PHP_VERSION=${PHP_VERSION}'
-      - 'PHP_UPSTREAM_PORT=${NGINX_PHP_UPSTREAM_PORT}'
+      APP_KEY: base64:Wl8MrDC7UiWbz2+9jowCzp7R+cVqF+ZuVf/vj/uKZ+8=
+      DEBUG: "true"
+      DB_HOST: mysql
+      DB_DATABASE: ${MYSQL_DATABASE}
+      DB_USER: ${MYSQL_USER}
+      DB_PASSWORD: ${MYSQL_PASSWORD}
+      DB_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      DB_PORT: 3306
+      MAIL_DRIVER: smtp
+      MAIL_HOST: mailhog
+      MAIL_PORT: 1025
+      MAIL_ENCRYPTION: null
+      MAIL_FROM_ADDRESS: no-reply@bunkermaestro.com
+      MAIL_FROM_NAME: BunkerMaestro
     depends_on:
       - mysql
+      - mailhog
+
   mysql:
     build:
       context: ./laravel/docker/mysql
@@ -42,3 +59,24 @@ services:
       - '${MYSQL_ENTRYPOINT_INITDB}:/docker-entrypoint-initdb.d'
     ports:
       - '${MYSQL_PORT}:3306'
+
+  mailhog:
+    image: mailhog/mailhog:latest
+    environment:
+      MH_STORAGE: maildir
+    volumes:
+      - ${DATA_PATH_HOST}/mailhog:/maildir:rw,delegated
+    ports:
+        - "8025:8025"
+        - "1025:1025"
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:4.8
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      PMA_USER: ${MYSQL_USER}
+      PMA_PASSWORD: ${MYSQL_PASSWORD}
+      PMA_ABSOLUTE_URI: 'localhost:${PMA_PORT}'
+    ports:
+      - '${PMA_PORT}:80'
