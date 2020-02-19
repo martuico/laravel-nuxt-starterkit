@@ -3,13 +3,11 @@
 
 namespace Tests\Feature\Users;
 
-
 use App\User;
 use Tests\Feature\Core\AuthenticatedTestCase;
 
 class UserIndexTest extends AuthenticatedTestCase
 {
-
     public function setUp(): void
     {
         parent::setUp();
@@ -47,7 +45,5 @@ class UserIndexTest extends AuthenticatedTestCase
         $this->assertequals('user', $response->json('data.0.type'));
         $this->assertequals($this->auth->name, $response->json('data.0.attributes.name'));
         $this->assertequals($this->auth->email, $response->json('data.0.attributes.email'));
-
-
     }
 }

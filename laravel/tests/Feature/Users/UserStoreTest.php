@@ -3,13 +3,11 @@
 
 namespace Tests\Feature\Users;
 
-
 use App\User;
 use Tests\Feature\Core\AuthenticatedTestCase;
 
 class UserStoreTest extends AuthenticatedTestCase
 {
-
     public function setUp(): void
     {
         parent::setUp();

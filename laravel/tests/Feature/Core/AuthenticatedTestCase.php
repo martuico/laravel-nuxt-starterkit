@@ -3,7 +3,6 @@
 
 namespace Tests\Feature\Core;
 
-
 use App\User;
 use Laravel\Passport\Passport;
 use Tests\TestCase;
@@ -25,7 +24,8 @@ abstract class AuthenticatedTestCase extends TestCase
         $this->auth = factory(User::class)->create();
     }
 
-    public function authenticate() {
+    public function authenticate()
+    {
         Passport::actingAs($this->auth);
     }
 }

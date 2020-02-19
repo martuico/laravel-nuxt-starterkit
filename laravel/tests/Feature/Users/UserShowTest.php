@@ -3,13 +3,11 @@
 
 namespace Tests\Feature\Users;
 
-
 use App\User;
 use Tests\Feature\Core\AuthenticatedTestCase;
 
 class UserShowTest extends AuthenticatedTestCase
 {
-
     public function test_cannot_access_if_not_authenticated()
     {
         $response = $this->get("/api/users/1");

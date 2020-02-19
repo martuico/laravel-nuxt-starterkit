@@ -3,7 +3,6 @@
 
 namespace App\BunkerMaestro\UserManagement\Actions;
 
-
 use App\BunkerMaestro\UserManagement\QueryBuilders\GetUsersBuilder;
 use App\User;
 

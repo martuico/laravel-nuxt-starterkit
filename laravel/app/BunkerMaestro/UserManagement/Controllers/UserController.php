@@ -3,7 +3,6 @@
 
 namespace App\BunkerMaestro\UserManagement\Controllers;
 
-
 use App\BunkerMaestro\Core\Controllers\ApiController;
 use App\BunkerMaestro\UserManagement\Actions\CreateUser;
 use App\BunkerMaestro\UserManagement\Actions\GetUserById;

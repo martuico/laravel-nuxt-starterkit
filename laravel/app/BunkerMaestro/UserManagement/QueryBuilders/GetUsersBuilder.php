@@ -3,7 +3,6 @@
 
 namespace App\BunkerMaestro\UserManagement\QueryBuilders;
 
-
 use App\BunkerMaestro\Core\QueryBuilders\PaginatorBuilder;
 use App\BunkerMaestro\Core\QueryBuilders\QueryBuilder;
 use App\User;

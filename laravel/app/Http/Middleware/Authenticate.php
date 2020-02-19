@@ -24,7 +24,9 @@ class Authenticate extends Middleware
     protected function unauthenticated($request, array $guards)
     {
         $e = new AuthenticationException(
-            'Unauthenticated.', $guards, $this->redirectTo($request)
+            'Unauthenticated.',
+            $guards,
+            $this->redirectTo($request)
         );
 
         // dingo-api will throw http 500 unless we wrap it in a HTTPException

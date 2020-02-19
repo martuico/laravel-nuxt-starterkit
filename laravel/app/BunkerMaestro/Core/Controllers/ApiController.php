@@ -3,7 +3,6 @@
 
 namespace App\BunkerMaestro\Core\Controllers;
 
-
 use App\Http\Controllers\Controller;
 use Dingo\Api\Routing\Helpers;
 use Illuminate\Database\Eloquent\Model;
@@ -13,7 +12,7 @@ abstract class ApiController extends Controller
 {
     use Helpers;
 
-    protected abstract function getResourceType(): string;
+    abstract protected function getResourceType(): string;
 
     protected function item(Model $model, TransformerAbstract $transformer, array $parameters = [])
     {
