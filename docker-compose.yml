@@ -66,7 +66,7 @@ services:
       - ${DATA_PATH_HOST}/mailhog:/maildir:rw,delegated
     ports:
         - "${MAILHOG_HTTP_PORT}:8025"
-        - "{$MAILHOG_MAIL_PORT}:1025"
+        - "${MAILHOG_MAIL_PORT}:1025"
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:4.8
