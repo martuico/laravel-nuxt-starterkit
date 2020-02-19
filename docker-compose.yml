@@ -31,7 +31,6 @@ services:
       DB_DATABASE: ${MYSQL_DATABASE}
       DB_USER: ${MYSQL_USER}
       DB_PASSWORD: ${MYSQL_PASSWORD}
-      DB_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       DB_PORT: 3306
       MAIL_DRIVER: smtp
       MAIL_HOST: mailhog
@@ -49,11 +48,10 @@ services:
       args:
         - 'MYSQL_VERSION=${MYSQL_VERSION}'
     environment:
-      - 'MYSQL_DATABASE=${MYSQL_DATABASE}'
-      - 'MYSQL_USER=${MYSQL_USER}'
-      - 'MYSQL_PASSWORD=${MYSQL_PASSWORD}'
-      - 'MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}'
-      - 'TZ=${WORKSPACE_TIMEZONE}'
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     volumes:
       - '${DATA_PATH_HOST}/mysql:/var/lib/mysql'
       - '${MYSQL_ENTRYPOINT_INITDB}:/docker-entrypoint-initdb.d'
@@ -67,8 +65,8 @@ services:
     volumes:
       - ${DATA_PATH_HOST}/mailhog:/maildir:rw,delegated
     ports:
-        - "8025:8025"
-        - "1025:1025"
+        - "${MAILHOG_HTTP_PORT}:8025"
+        - "{$MAILHOG_MAIL_PORT}:1025"
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:4.8
