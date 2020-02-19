@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\BunkerMaestro\UserManagement\QueryBuilders;
 
 use App\BunkerMaestro\Core\QueryBuilders\PaginatorBuilder;

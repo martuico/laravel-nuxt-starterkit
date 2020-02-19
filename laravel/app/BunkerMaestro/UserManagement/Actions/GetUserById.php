@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\BunkerMaestro\UserManagement\Actions;
 
 use App\User;

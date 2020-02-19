@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\BunkerMaestro\Core\Controllers;
 
 use App\Http\Controllers\Controller;

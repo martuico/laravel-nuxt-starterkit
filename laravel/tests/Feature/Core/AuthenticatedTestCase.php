@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Tests\Feature\Core;
 
 use App\User;

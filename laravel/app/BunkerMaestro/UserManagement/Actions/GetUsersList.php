@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\BunkerMaestro\UserManagement\Actions;
 
 use App\BunkerMaestro\UserManagement\QueryBuilders\GetUsersBuilder;

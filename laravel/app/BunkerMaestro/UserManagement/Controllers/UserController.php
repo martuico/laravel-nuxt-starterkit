@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\BunkerMaestro\UserManagement\Controllers;
 
 use App\BunkerMaestro\Core\Controllers\ApiController;

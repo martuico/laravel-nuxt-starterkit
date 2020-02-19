@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\BunkerMaestro\UserManagement\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;

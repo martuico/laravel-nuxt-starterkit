@@ -1,5 +1,6 @@
 <?php
 
+use App\BunkerMaestro\UserManagement\Controllers\UserController;
 use Illuminate\Http\Request;
 
 /*
@@ -25,6 +26,6 @@ $api
         $api->group([
             'middleware' => 'auth:api',
         ], function ($api) {
-            $api->resource('users', \App\BunkerMaestro\UserManagement\Controllers\UserController::class, ['only' => ['index', 'store', 'show']]);
+            $api->resource('users', UserController::class, ['only' => ['index', 'store', 'show']]);
         });
     });

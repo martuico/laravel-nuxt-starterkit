@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Tests\Feature\Users;
 
 use App\User;
@@ -28,9 +27,21 @@ class UserIndexTest extends AuthenticatedTestCase
         $data = $response->json('data');
         $this->assertIsArray($data);
         $this->assertCount(10, $data);
-        $this->assertequals(21, $response->json('meta.pagination.total'), 'total users available shows 20 + current auth user');
-        $this->assertequals(10, $response->json('meta.pagination.per_page'), "metadata indicates items displayed per page");
-        $this->assertequals(1, $response->json('meta.pagination.current_page'), "we are at page 1");
+        $this->assertequals(
+            21,
+            $response->json('meta.pagination.total'),
+            'total users available shows 20 + current auth user'
+        );
+        $this->assertequals(
+            10,
+            $response->json('meta.pagination.per_page'),
+            "metadata indicates items displayed per page"
+        );
+        $this->assertequals(
+            1,
+            $response->json('meta.pagination.current_page'),
+            "we are at page 1"
+        );
     }
 
     public function test_it_shows_user_data()
