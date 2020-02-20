@@ -2,3 +2,4 @@
 /logs
 /Dockers
 laravel/.idea/
+/frontend/package-lock.json
